@@ -21,6 +21,19 @@ const UpdateMovie = props => {
       })
   }, [props.match.params.id])
 
+//   useEffect(() => {
+//     const editThisMovie = props.movies.find(
+//         item => `${item.id}` === props.match.params.id
+//     )
+
+//     if(!editThisMovie) {
+//         return
+//     } else {
+//         setMovie(editThisMovie)
+//     }
+
+// }, [props.movies, props.match.params.id])
+
   const handleChange = e => {
     setMovie({
       ...movie,
@@ -32,12 +45,32 @@ const UpdateMovie = props => {
     e.preventDefault();
     axios.put(`http://localhost:5000/api/movies/${movie.id}`, movie)
       .then(res => {
-        props.history.push("/movies");
+        props.history.push("/");
       })
       .catch(err => {
         console.log(err)
       })
   }
+
+//   const handleSubmit = e => {
+//     e.preventDefault()
+//     axios
+//         .put(`http://localhost:5000/api/movies/${movie.id}`, movie)
+//         .then(res => {
+
+//             const updatedList = props.movies.map(item => {
+//                 if(item.id === movie.id) {
+//                     return item = res.data
+//                 } else {
+//                     return item
+//                 }
+//             })
+//             props.setMovies(updatedList)
+//         })
+//         .catch(err => console.log(err))
+
+//     props.history.push('/');
+// }
 
   return (
     <div>
