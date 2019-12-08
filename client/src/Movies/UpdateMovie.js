@@ -12,7 +12,7 @@ const UpdateMovie = props => {
   })
 
   useEffect(() => {
-    axios().get(`http://localhost:5000/api/movies/${props.match.params.id}`)
+    axios.get(`http://localhost:5000/api/movies/${props.match.params.id}`)
       .then(res => {
         setMovie(res.data)
       })
@@ -30,7 +30,7 @@ const UpdateMovie = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    axios().put(`http://localhost:5000/api/movies/${movie.id}`, movie)
+    axios.put(`http://localhost:5000/api/movies/${movie.id}`, movie)
       .then(res => {
         props.history.push("/movies");
       })
