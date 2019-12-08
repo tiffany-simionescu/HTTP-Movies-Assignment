@@ -32,6 +32,28 @@ export default class Movie extends React.Component {
     addToSavedList(this.state.movie);
   };
 
+  deleteMovie = (e, id) => {
+    e.preventDefault();
+    // const theMovie = this.state.movie.find(movie => movie.id === id);
+
+    if(window.confirm("Are you sure you want to delete this movie?")) (
+      axios.delete(`http://localhost:5000/api/movies/${id}`, this.state)
+        .then(res => {
+          console.log(res, "Movie was deleted");
+          // this.setState(this.state.movie.filter(movie => movie.id !== id))
+          // this.setState(res.data);
+          this.props.history.push("/");
+        })
+        .catch(err => {
+          console.log(err);
+          // this.setState([...this.state.movie, theMovie]);
+        })
+    )
+    this.props.history.push("/");
+    // Removes movie from list on app
+    window.location.href = window.location.href
+  }
+
   render() {
     if (!this.state.movie) {
       return <div>Loading movie information...</div>;
@@ -43,8 +65,14 @@ export default class Movie extends React.Component {
         <div className="save-button" onClick={this.saveMovie}>
           Save
         </div>
-        <div className="save-button">
-          <Link to={`/update-movie/${this.state.movie.id}`}>Edit</Link>
+        <div>
+          <Link className="edit-button"
+            to={`/update-movie/${this.state.movie.id}`}>Edit</Link>
+          <div className="delete-button" 
+            onClick={(e) => this.deleteMovie(e, this.state.movie.id)}>
+            {/* onClick={this.deleteMovie}> */}
+              Delete
+          </div>
         </div>
         {/* <button className='edit-button' onClick={() => this.props.history.push(`/update-movie/${this.state.movie.id}`)}>Edit</button> */}
       </div>
